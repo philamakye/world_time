@@ -15,7 +15,13 @@ class _LoadingState extends State<Loading> {
 
   Response response = await get(Uri.parse("http://worldtimeapi.org/api/timezone/Europe/London"));
   Map data = jsonDecode(response.body);
-  print(data);
+  String date = data['datetime'];
+  String offset = data['utc_offset'].substring(1,3);
+
+  DateTime dateTime = DateTime.parse(date);
+  dateTime = dateTime.add(Duration(hours: int.parse(offset)));
+  print(dateTime);
+
 
   }
 
